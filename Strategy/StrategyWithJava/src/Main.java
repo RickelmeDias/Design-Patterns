@@ -1,6 +1,7 @@
 import entity.Budget;
 import entity.TaxCalculator;
-import enums.TaxTypeEnum;
+import entity.taxes.ICMS;
+import entity.taxes.ISS;
 
 import java.math.BigDecimal;
 
@@ -9,7 +10,7 @@ public class Main {
         Budget budget = new Budget(new BigDecimal("100"));
         TaxCalculator taxCalculator = new TaxCalculator();
 
-        System.out.println(taxCalculator.calculate(budget, TaxTypeEnum.ICMS));
-        System.out.println(taxCalculator.calculate(budget, TaxTypeEnum.ISS));
+        System.out.println(taxCalculator.calculate(budget, new ICMS()));
+        System.out.println(taxCalculator.calculate(budget, new ISS()));
     }
 }
