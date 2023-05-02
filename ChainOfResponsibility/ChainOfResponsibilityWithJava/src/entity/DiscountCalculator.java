@@ -1,17 +1,17 @@
 package entity;
 
+import entity.discounts.Discount;
+import entity.discounts.DiscountForHighPrice;
+import entity.discounts.DiscountForManyItems;
+import entity.discounts.NoDiscount;
+
 import java.math.BigDecimal;
 
 public class DiscountCalculator {
     public BigDecimal calculate(Budget budget) {
-        if (budget.getPrice().compareTo(new BigDecimal("500")) > 0) {
-            return budget.getPrice().multiply(new BigDecimal("0.1"));
-        }
-        if (budget.getItemsAmount()>5) {
-            return budget.getPrice().multiply(new BigDecimal("0.1"));
-        }
-
-        // Many if for each (if) 
-        return BigDecimal.ZERO;
+        Discount discount = new DiscountForManyItems(
+                                new DiscountForHighPrice(
+                                            new NoDiscount()));
+        return discount.calculate(budget);
     }
 }
