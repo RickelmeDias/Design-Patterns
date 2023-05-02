@@ -9,10 +9,13 @@ public class DiscountForHighPrice extends Discount {
         super(next);
     }
 
-    public BigDecimal calculate(Budget budget) {
-        if (budget.getPrice().compareTo(new BigDecimal("500")) > 0) {
-            return budget.getPrice().multiply(new BigDecimal("0.1"));
-        }
-        return next.calculate(budget);
+    @Override
+    protected BigDecimal calculateImplementation(Budget budget) {
+        return budget.getPrice().multiply(new BigDecimal("0.1"));
+    }
+
+    @Override
+    protected boolean mustCalculate(Budget budget) {
+        return budget.getPrice().compareTo(new BigDecimal("500")) > 0;
     }
 }
