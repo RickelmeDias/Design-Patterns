@@ -9,13 +9,10 @@ public class DiscountForManyItems extends Discount {
         super(next);
     }
 
-    @Override
-    protected BigDecimal calculateImplementation(Budget budget) {
-        return budget.getPrice().multiply(new BigDecimal("0.1"));
-    }
-
-    @Override
-    protected boolean mustCalculate(Budget budget) {
-        return budget.getItemsAmount()>5;
+    public BigDecimal calculate(Budget budget) {
+        if (budget.getItemsAmount()>5) {
+            return budget.getPrice().multiply(new BigDecimal("0.1"));
+        }
+        return next.calculate(budget);
     }
 }
